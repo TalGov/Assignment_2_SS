@@ -13,5 +13,4 @@ number. For Example: 145 is strong number
 */
 int isStrong(int);
 
-int* decomposeDigits(int num);
 int factorial (int num);
