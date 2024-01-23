@@ -2,7 +2,6 @@
 
 int isStrong(int num)
 {
-    //int* digits_num = decomposeDigits(num);
     int sum = 0;
     int tempN = num;
 
