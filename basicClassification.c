@@ -38,7 +38,7 @@ int isPrime(int num)
 
 int factorial (int num)
 {
-    if(num == 1)
+    if(num == 0)
     {
         return 1;
     }
