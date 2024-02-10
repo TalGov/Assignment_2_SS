@@ -1,0 +1,14 @@
+
+output: main.o
+	gcc  main.o -o my_graph
+
+
+main.o: main.c my_mat.h
+	gcc -c main.c
+
+
+my_mat.o: my_mat.h my_mat.c
+	gcc -c my_math.c
+
+clean:
+	rm *.o
