@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../../../../../my_mat.h"
+#include "my_mat.h"
 
 
 int main()
@@ -36,11 +36,12 @@ int main()
             case 'C':
                 scanf("%d", &dest);
                 scanf("%d", &src);
-                shortestPath(matrix,src,dest);
+                pathWeight(matrix,src,dest);
                 break;
 
-            case 'D': ////////////EOD
+            case 'D' : ////EOF
                 return 0;
+
 
         }
     }
