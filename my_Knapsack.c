@@ -4,43 +4,39 @@
 #define BACKPACKSIZE 5
 #define BACKPACKMAXWEIGHT 20
 
-void fill_values(int i, int j, int stored_values[BACKPACKSIZE][BACKPACKMAXWEIGHT], int weights[], int values[])
+
+
+void fill_values(int stored_values[BACKPACKSIZE + 1][BACKPACKMAXWEIGHT + 1], int weights[], int values[])
 {
-	printf("\nThis call has those args:\ni: %i\nj: %i", i, j);
-	if (i == 0 || j <= 0) // base case we return 0 {we are not looking at any item or the backpack size is 0
-	{
-		stored_values[i][j] = 0;
-		return;
-	}
 
-	if (stored_values[i-1][j] == -1) // the case (i-1, j) has not been calculated
+	// Build table K[][] in bottom up manner
+	for (int i = 0; i <= BACKPACKSIZE; i++)
 	{
-		fill_values(i-1, j, stored_values, weights, values);
-	}
-
-	if (weights[i] > j) // if the item cannot fit in the bag
-	{
-		stored_values[i][j] = stored_values[i-1][j];
-	}
-	else{ // if the item CAN fit in the bag
-		if (stored_values[i-1][j-weights[i]] == -1){	// the case (i-1, j-weights[i]) has not been calculated yet
-			fill_values(i-1, j-weights[i], stored_values, weights, values);
-		}
-
-		// we store the maximum value
-		if (stored_values[i-1][j] > stored_values[i-1][j-weights[i]] + values[i])
+		for (int w = 0; w <= BACKPACKMAXWEIGHT; w++)
 		{
-			stored_values[i][j] = stored_values[i-1][j];
-		}
-		else {
-			stored_values[i][j] = stored_values[i-1][j-weights[i]] + values[i];
+			if (i==0 || w==0)
+			{
+				stored_values[i][w] = 0;
+			}
+
+			else if (weights[i-1] <= w)
+			{
+				stored_values[i][w] = values[i-1] + stored_values[i-1][w-weights[i-1]] > stored_values[i-1][w] ?
+									  values[i-1] + stored_values[i-1][w-weights[i-1]] : stored_values[i-1][w];
+			}
+
+			else
+			{
+				stored_values[i][w] = stored_values[i - 1][w];
+			}
 		}
 	}
 }
 
 void process_inputs(char items[], int weights[], int values[])
 {
-    for (int i = 0; i < BACKPACKSIZE; ++i) {
+    for (int i = 0; i < BACKPACKSIZE; ++i)
+	{
         scanf(" %c", &items[i]);
         scanf("%i", &values[i]);
         scanf("%i", &weights[i]);
@@ -51,7 +47,7 @@ void process_inputs(char items[], int weights[], int values[])
 /**
  * going through the values of the precomputed matrix and if the items is taken updating the boolean array
  */
-void get_items(int i, int j, int weights[], int selected_bool[], int stored_values[BACKPACKSIZE][BACKPACKMAXWEIGHT])
+void get_items(int i, int j, int weights[], int selected_bool[], int stored_values[BACKPACKSIZE + 1][BACKPACKMAXWEIGHT + 1])
 {
 	if (i == 0)
 	{
@@ -87,32 +83,27 @@ char * create_string(char string[11], int selected_bool[], char items[], int wei
 
 int knapSack(int weights[], int values[], int selected_bool[])
 {
-	int stored_values[BACKPACKSIZE][BACKPACKMAXWEIGHT];
+	int stored_values[BACKPACKSIZE + 1][BACKPACKMAXWEIGHT + 1];
 
-	for j from 0 to W do:
-	fill_values(BACKPACKSIZE - 1, BACKPACKMAXWEIGHT - 1, stored_values, weights, values); // fill the matrix with optimal solutions
+	for (int i = 0; i <= BACKPACKSIZE; ++i) {
+		for (int j = 0; j <= BACKPACKMAXWEIGHT; ++j) {
+			stored_values[i][j] = -1;
+		}
+	}
 
-	for i from 1 to n do:
-			m[i, 0] := 0
+	fill_values(stored_values, weights, values); // fill the matrix with optimal solutions
 
-	for i from 1 to n do:
-	for j from 1 to W do:
-	if w[i] > j then:
-	m[i, j] := m[i-1, j]
-	else:
-	m[i, j] := max(m[i-1, j], m[i-1, j-w[i]] + v[i])
-
-	get_items(BACKPACKSIZE-1, BACKPACKMAXWEIGHT-1, weights, selected_bool, stored_values); //update the boolean
+	get_items(BACKPACKSIZE, BACKPACKMAXWEIGHT, weights, selected_bool, stored_values); //update the boolean
 
 	printf("\n");
-	for (int i = 0; i <BACKPACKSIZE; ++i) {
-		for (int j = 0; j < BACKPACKMAXWEIGHT; ++j) {
+	for (int i = 0; i <=BACKPACKSIZE; ++i) {
+		for (int j = 0; j <= BACKPACKMAXWEIGHT; ++j) {
 			printf("%i ", stored_values[i][j]);
 		}
 		printf("\n");
 	}
 
-	return stored_values[BACKPACKSIZE-1][BACKPACKMAXWEIGHT-1]; // the maximum value
+	return stored_values[BACKPACKSIZE][BACKPACKMAXWEIGHT]; // the maximum value
 }
 
 
@@ -127,19 +118,21 @@ int main()
 	process_inputs(items, weights, values); // processing the user input
 
 	printf("items\n");
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < 5; ++i)
+	{
 		printf("%c",items[i]);
-
-
 	}
 	printf("\nvalues");
 	printf("\n");
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < 5; ++i)
+	{
 		printf("%i ",values[i]);
 	}
 	printf("\nWeights");
 	printf("\n");
-	for (int i = 0; i <5; ++i) {
+
+	for (int i = 0; i <5; ++i)
+	{
 		printf("%i ",weights[i]);
 	}
 
