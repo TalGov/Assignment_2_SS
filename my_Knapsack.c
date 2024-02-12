@@ -135,7 +135,7 @@ int main()
 
 	char string[BACKPACKSIZE * 2 + 1];
 	create_string(string, selected_bool, items);
-	printf("\nSelected items: %s\n", string); // the picked items
+	printf("\nSelected items: %s", string); // the picked items
 }
 
 
