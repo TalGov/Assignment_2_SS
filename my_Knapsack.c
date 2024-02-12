@@ -4,7 +4,6 @@
 #define BACKPACKSIZE 5 // The maximum number of items
 #define BACKPACKMAXWEIGHT 20
 
-
 /**
  * fill the lookup table for the knapsack problem
  * @param stored_values the lookup table
@@ -13,7 +12,6 @@
  */
 void fill_values(int stored_values[BACKPACKSIZE + 1][BACKPACKMAXWEIGHT + 1], int weights[], int values[])
 {
-
 	// Filling the lookup table
 	for (int i = 0; i <= BACKPACKSIZE; i++)
 	{
@@ -23,7 +21,6 @@ void fill_values(int stored_values[BACKPACKSIZE + 1][BACKPACKMAXWEIGHT + 1], int
 			{
 				stored_values[i][w] = 0; // zero is assigned
 			}
-
 
 			else if (weights[i-1] <= w) // if there is enough space
 			{
@@ -52,7 +49,6 @@ void process_inputs(char items[], int weights[], int values[])
     }
 }
 
-
 /**
  * going through the values of the precomputed matrix and if the items is taken updating the boolean array
  */
@@ -68,6 +64,7 @@ void get_items(int i, int j, int weights[], int selected_bool[], int stored_valu
 		selected_bool[i-1] = 1; // we have take the item
 		get_items(i-1, j - weights[i-1], weights, selected_bool, stored_values); // recursive call with the weight reduced by the taken items
 	}
+
 	else // if the value is same without the object
 	{
 		get_items(i-1, j, weights, selected_bool, stored_values); // recursive call without the object
