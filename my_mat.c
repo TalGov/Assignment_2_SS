@@ -21,15 +21,15 @@ void isValidPath(int matrix[][SIZE],int src,int dest)
 {
     int val;
 
-    //If there is an arc between the vertices, we will return true without checking
-    if(matrix[dest][src] != 0)
+    //If there is an arc between the vertices and it's not the same vertex, we will return true without checking
+    if(matrix[dest][src] != 0 && src != dest)
     {
         printf("True");
     }
     else
     {
         val= shortestPath(matrix,src,dest); //val = the lowest weight between 2 vertices
-        if(val != INT_MAX)
+        if(val != INT_MAX &&  src != dest)
         {
             printf("True");
         }
@@ -45,7 +45,7 @@ void pathWeight(int matrix[][SIZE],int src,int dest)
     int valWeight;
     valWeight= shortestPath(matrix,src,dest); //valWeight = the lowest weight between 2 vertices
 
-    if(valWeight == INT_MAX) //There is no path between the vertices
+    if(valWeight == INT_MAX || src == dest) //There is no path between the vertices or it's the same vertex
     {
         printf("-1");
     }
