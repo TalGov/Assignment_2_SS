@@ -24,12 +24,14 @@ int main()
                 scanf("%d", &dest);
                 scanf("%d", &src);
                 isValidPath(matrix,src,dest);
+                printf("\n");
                 break;
 
             case 'C': //Prints the path with the lowest weight between i,j
                 scanf("%d", &dest);
                 scanf("%d", &src);
                 pathWeight(matrix,src,dest);
+                printf("\n");
                 break;
 
             case 'D' : //exit
