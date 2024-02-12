@@ -12,8 +12,6 @@ int main()
 
     while ((choice = getchar()) != EOF) //The block will be executed until D or EOF is received
     {
-        ; //input from the user
-
         switch (choice) //using in switch case
         {
             case 'A': //input of the matrix from the user
@@ -35,9 +33,6 @@ int main()
                 break;
 
             case 'D' : //exit
-                return 0;
-
-            case EOF: //end of file
                 return 0;
 
         }
