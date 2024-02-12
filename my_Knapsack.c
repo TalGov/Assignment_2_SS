@@ -87,7 +87,7 @@ char * create_string(char string[11], int selected_bool[], char items[]){
 			string_index += 2; // increment the index by two to not override
 		}
 	}
-	string[string_index] = '\0'; // ending the string
+	string[string_index - 1] = '\0'; // ending the string
 	return string;
 }
 
