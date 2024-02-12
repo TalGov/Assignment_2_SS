@@ -10,9 +10,9 @@ int main()
     int src;
     int dest;
 
-    while (1) //The block will be executed until D or EOF is received
+    while ((choice = getchar()) != EOF) //The block will be executed until D or EOF is received
     {
-        scanf("%c", &choice); //input from the user
+        ; //input from the user
 
         switch (choice) //using in switch case
         {
