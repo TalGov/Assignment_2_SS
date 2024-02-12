@@ -4,44 +4,39 @@
 
 int main()
 {
-    int matrix[SIZE][SIZE]= {0};
+
+    int matrix[SIZE][SIZE]= {0}; //Neighborhood matrix containing weights
     char choice;
     int src;
     int dest;
 
-    while (1)
+    while (1) //The block will be executed until D or EOF is received
     {
-        scanf("%c", &choice);
+        scanf("%c", &choice); //input from the user
 
-        switch (choice)
+        switch (choice) //using in switch case
         {
-            case 'A':
+            case 'A': //input of the matrix from the user
                 inputMatrix(matrix);
-                for(int i = 0 ; i < SIZE ; i++)
-                {
-                    for(int j = 0 ; j < SIZE; j++)
-                    {
-                        printf("%d", matrix[i][j]);
-                    }
-                    printf("\n");
-                }
                 break;
 
-            case 'B':
+            case 'B': //Checks if exists a path from i to j
                 scanf("%d", &dest);
                 scanf("%d", &src);
                 isValidPath(matrix,src,dest);
                 break;
 
-            case 'C':
+            case 'C': //Prints the path with the lowest weight between i,j
                 scanf("%d", &dest);
                 scanf("%d", &src);
                 pathWeight(matrix,src,dest);
                 break;
 
-            case 'D' : ////EOF
+            case 'D' : //exit
                 return 0;
 
+            case EOF: //end of file
+                return 0;
 
         }
     }
